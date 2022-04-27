@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.355" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.355" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinoblu1.xml" value="0.355" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinoblu2.xml" value="0.355" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinogrigio2.xml" value="0.2325" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/font/alice.xml" value="0.396875" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/font/c.xml" value="0.396875" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/font/helveticaneue.xml" value="0.396875" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_menu.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinoantracite1.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinoblu1.xml" value="0.2175925925925926" />
