@@ -35,6 +35,23 @@ public class MenuActivity extends AppCompatActivity {
                 mLastClickTime = SystemClock.elapsedRealtime();
 
                 startActivity(new Intent(MenuActivity.this, LoginActivity.class));
+                finish();
+            }
+        };
+        View.OnClickListener nuovaMulta = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                mLastClickTime = SystemClock.elapsedRealtime();
+
+                startActivity(new Intent(MenuActivity.this, NuovaMultaActivity.class));
+            }
+        };
+        View.OnClickListener vediMulte = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                mLastClickTime = SystemClock.elapsedRealtime();
             }
         };
 
@@ -43,5 +60,11 @@ public class MenuActivity extends AppCompatActivity {
 
         (findViewById(R.id.bout1)).setOnClickListener(logout);
         (findViewById(R.id.bout2)).setOnClickListener(logout);
+
+        (findViewById(R.id.bnuovo1)).setOnClickListener(nuovaMulta);
+        (findViewById(R.id.bnuovo2)).setOnClickListener(nuovaMulta);
+
+        (findViewById(R.id.bvedi1)).setOnClickListener(vediMulte);
+        (findViewById(R.id.bvedi2)).setOnClickListener(vediMulte);
     }
 }
