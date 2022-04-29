@@ -247,7 +247,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
     <View
-        android:id="@+id/bin"
+        android:id="@+id/bin1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/rettangolinogrigio2"
@@ -327,8 +327,10 @@
         android:ems="10"
         android:fontFamily="@font/ock"
         android:hint="Matriculation Code"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:textAlignment="center"
+        android:textColor="#2B2B2B"
+        android:textColorHint="#B7B7B7"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline45"
         app:layout_constraintEnd_toStartOf="@+id/guideline48"
@@ -344,6 +346,8 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
+        android:textColor="#2B2B2B"
+        android:textColorHint="#B7B7B7"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline46"
         app:layout_constraintEnd_toStartOf="@+id/guideline48"

@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MenuActivity.this, InfoActivity.class));
             }
         };
-        View.OnClickListener login = new View.OnClickListener() {
+        View.OnClickListener logout = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
         (findViewById(R.id.binfo1)).setOnClickListener(info);
         (findViewById(R.id.binfo2)).setOnClickListener(info);
 
-        (findViewById(R.id.bout1)).setOnClickListener(login);
-        (findViewById(R.id.bout2)).setOnClickListener(login);
+        (findViewById(R.id.bout1)).setOnClickListener(logout);
+        (findViewById(R.id.bout2)).setOnClickListener(logout);
     }
 }
