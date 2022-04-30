@@ -7,6 +7,7 @@
     tools:context=".EffrazioniFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -48,6 +49,34 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.844" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline83"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.78" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.19" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline84"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.64" />
+
         <View
             android:id="@+id/baff1"
             android:layout_width="0dp"
@@ -73,6 +102,26 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline78"
             app:layout_constraintStart_toStartOf="@+id/guideline81"
             app:layout_constraintTop_toTopOf="@+id/guideline80" />
+
+        <View
+            android:id="@+id/test"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#ff0000"
+            app:layout_constraintBottom_toTopOf="@+id/guideline82"
+            app:layout_constraintEnd_toStartOf="@+id/guideline78"
+            app:layout_constraintStart_toStartOf="@+id/guideline81"
+            app:layout_constraintTop_toTopOf="@+id/guideline70" />
+
+        <Button
+            android:id="@+id/cock"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/guideline83"
+            app:layout_constraintEnd_toStartOf="@+id/guideline78"
+            app:layout_constraintStart_toStartOf="@+id/guideline81"
+            app:layout_constraintTop_toTopOf="@+id/guideline84" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

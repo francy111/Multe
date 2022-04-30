@@ -1,5 +1,6 @@
 package com.example.multe;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,13 +9,14 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EffrazioniFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EffrazioniFragment extends Fragment {
+public class EffrazioniFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +62,18 @@ public class EffrazioniFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_effrazioni, container, false);
+        View c = inflater.inflate(R.layout.fragment_effrazioni, container, false);
+        Button cock = (Button) c.findViewById(R.id.cock);
+        cock.setOnClickListener(this);
+        return c;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.cock:
+            getView().findViewById(R.id.test).setBackgroundColor(Color.BLUE);
+            break;
+        }
     }
 }

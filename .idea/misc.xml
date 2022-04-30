@@ -3,34 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.355" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.355" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinoantracite1.xml" value="0.284" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinoblu1.xml" value="0.2" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinoblu2.xml" value="0.355" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinoblu3.xml" value="0.284" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinogrigio1.xml" value="0.218" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/drawable/rettangolinogrigio2.xml" value="0.2325" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/font/alice.xml" value="0.396875" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/font/c.xml" value="0.396875" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/font/helveticaneue.xml" value="0.396875" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_info.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_info_multa.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_lista_effrazioni.xml" value="0.2" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_menu.xml" value="0.33" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_nuova_multa.xml" value="0.31875" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/activity_visualizza_multa.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Franc/StudioProjects/Multe/app/src/main/res/layout/fragment_effrazioni.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.22037037037037038" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinoantracite1.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinoblu1.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinoblu2.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinogrigio1.xml" value="0.2175925925925926" />
         <entry key="app/src/main/res/drawable/rettangolinogrigio2.xml" value="0.2175925925925926" />
+        <entry key="app/src/main/res/layout/activity_info.xml" value="0.22421712843315206" />
+        <entry key="app/src/main/res/layout/activity_info_multa.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1953125" />
-        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.26666666666666666" />
+        <entry key="app/src/main/res/layout/fragment_effrazioni.xml" value="0.209375" />
       </map>
     </option>
   </component>
