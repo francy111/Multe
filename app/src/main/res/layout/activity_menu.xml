@@ -338,7 +338,7 @@
         app:srcCompat="@drawable/badge" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/badge"
         android:layout_width="76dp"
         android:layout_height="64dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"

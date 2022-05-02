@@ -1,15 +1,33 @@
 package com.example.multe;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +35,7 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class EffrazioniFragment extends Fragment implements View.OnClickListener{
+    private long mLastClickTime = 0;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,17 +82,80 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View c = inflater.inflate(R.layout.fragment_effrazioni, container, false);
-        Button cock = (Button) c.findViewById(R.id.cock);
-        cock.setOnClickListener(this);
+        c.findViewById(R.id.addbreakin1).setOnClickListener(this);
+        c.findViewById(R.id.addbreakin2).setOnClickListener(this);
+
+        c.findViewById(R.id.Aggiungi).setOnClickListener(this);
+
+        Button effr, divider;
+        divider = new Button(getActivity());
+        divider.setBackgroundColor(Color.rgb(43, 43, 43));
+        ((LinearLayout)c.findViewById(R.id.scrolcoc)).addView(divider, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 35));
+
+        try {
+            for (int i = 0; i < MainActivity.effrazioni.size(); i++) {
+                effr = new Button(getActivity());
+                divider = new Button(getActivity());
+
+
+                Drawable d = getActivity().getResources().getDrawable(R.drawable.rettangolinogrigio2);
+                effr.setBackground(d);
+                effr.setTextColor(Color.rgb(43, 43, 43));
+                effr.setText(MainActivity.effrazioni.get(i).getString("nome"));
+                effr.setId(i);
+                effr.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                        mLastClickTime = SystemClock.elapsedRealtime();
+
+                        JSONObject o = MainActivity.effrazioni.get(view.getId());
+
+                        MainActivity.importi.remove(MainActivity.effrazioni.indexOf(o));
+                        MainActivity.effrazioni.remove(o);
+                        MainActivity.effrazioniTotali.add(o);
+
+
+                        getActivity().finish();
+                        getActivity().startActivity(getActivity().getIntent());
+                    }
+                });
+
+
+                divider.setBackgroundColor(Color.rgb(43, 43, 43));
+
+                ((LinearLayout) c.findViewById(R.id.scrolcoc)).addView(divider, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 35));
+                ((LinearLayout) c.findViewById(R.id.scrolcoc)).addView(effr, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 165));
+            }
+        }catch(Exception e){}
+
         return c;
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.cock:
-            getView().findViewById(R.id.test).setBackgroundColor(Color.BLUE);
-            break;
+            case R.id.addbreakin1:
+                a(this);
+                break;
+            case R.id.addbreakin2:
+                a(this);
+                break;
+            case R.id.Aggiungi:
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                mLastClickTime = SystemClock.elapsedRealtime();
+                Intent i = new Intent(getActivity(), EffrazioneActivity.class);
+                startActivity(i);
+                break;
         }
     }
+    public void a(Fragment f){
+
+        getActivity().findViewById(R.id.effrazioni).setVisibility(View.GONE);
+        getActivity().recreate();
+        SharedPreferences.Editor e = getActivity().getSharedPreferences("fragment" , 0).edit();
+        e.putInt("visibility", 8);
+        e.commit();
+    }
+
 }
