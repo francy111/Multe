@@ -52,6 +52,8 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
                 mLastClickTime = SystemClock.elapsedRealtime();
+
+                startActivity(new Intent(MenuActivity.this, VisualizzaMultaActivity.class));
             }
         };
 
