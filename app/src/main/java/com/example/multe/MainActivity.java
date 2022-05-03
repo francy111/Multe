@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Integer> importi = new ArrayList<>();
     public static ArrayList<JSONObject> effrazioniTotali = new ArrayList<>();
     private static double time = 0.0;
+    private static String TOKEN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("HttpClient", "success! response: " + response.toString());
                         try {
                             JSONObject rispostaJSON = new JSONObject(response);
+                            Log.d("COCK", rispostaJSON.toString());
                             Intent i;
                             if(rispostaJSON.getString("valido").equals("1")){
                                 i = new Intent(MainActivity.this, MenuActivity.class);
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                 params.put("function","app-checktoken");
+                Log.d("COCK", "token: "+getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                 return params;
             }
             @Override

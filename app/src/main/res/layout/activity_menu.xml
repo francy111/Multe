@@ -251,19 +251,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline14"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
-    <CheckBox
-        android:id="@+id/remember"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/ock"
-        android:text="Remember me"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
-
     <View
         android:id="@+id/binfo1"
         android:layout_width="0dp"
@@ -346,5 +333,19 @@
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/view8"
         app:srcCompat="@drawable/badge" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/ock"
+        android:text="Multe online"
+        android:textAlignment="center"
+        android:textColor="#Ffffff"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline19"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

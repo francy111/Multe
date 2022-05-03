@@ -119,64 +119,7 @@ public class NuovaMultaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
                 mLastClickTime = SystemClock.elapsedRealtime();
-                RequestQueue queue = Volley.newRequestQueue(NuovaMultaActivity.this);
-                //for POST requests, only the following line should be changed to
-                StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.d("HttpClient", "success! response: " + response.toString());
-                                try {
-                                    JSONObject rispostaJSON = new JSONObject(response);
-                                } catch (JSONException jsonException) {
-                                    jsonException.printStackTrace();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e("HttpClient", "error: " + error.toString());
-                            }
-                        })
-                {
-                    @Override
-                    protected Map<String,String> getParams(){
-                        Map<String,String> params = new HashMap<String, String>();
-
-                        try {
-                            String s = "";
-                            for (JSONObject obj : MainActivity.effrazioni) {
-                                s = s + obj.getString("id") + ",";
-                            }
-                            s = s.substring(0, s.length()-1);
-
-                            params.put("vigile",getSharedPreferences("vigile", MODE_PRIVATE).getString("matricola", ""));
-                            params.put("targa",((TextView)findViewById(R.id.plate)).getText().toString());
-                            params.put("luogo",((TextView)findViewById(R.id.location)).getText().toString());
-                            params.put("importo",importoMulta(MainActivity.importi)+ "");
-                            params.put("data",((TextView)findViewById(R.id.date)).getText().toString());
-                            params.put("ora",((TextView)findViewById(R.id.time)).getText().toString());
-                            params.put("latitudine",((TextView)findViewById(R.id.lat)).getText().toString());
-                            params.put("longitudine",((TextView)findViewById(R.id.lon)).getText().toString());
-                            //params.put("foto",null);
-
-                            params.put("effrazioni",s);
-                            Log.d("COCK", params.toString());
-
-                            params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
-                            params.put("function","app-nuovamulta");
-                        }catch(Exception e){}
-                        return params;
-                    }
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<String, String>();
-                        params.put("Content-Type","application/x-www-form-urlencoded");
-                        return params;
-                    }
-                };
-                queue.add(sr);
+                spedisciMulta();
             }
         };
 
@@ -212,5 +155,68 @@ public class NuovaMultaActivity extends AppCompatActivity {
         int a = 0;
         for(Integer b : s) a += b;
         return a;
+    }
+
+    private void spedisciMulta(){
+        //((View)findViewById(R.id.bnuovamulta1)).setClickable(false);
+        //((View)findViewById(R.id.bnuovamulta2)).setClickable(false);
+        RequestQueue queue = Volley.newRequestQueue(NuovaMultaActivity.this);
+        //for POST requests, only the following line should be changed to
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("HttpClient", "success! response: " + response.toString());
+
+                        ((View)findViewById(R.id.bnuovamulta1)).setClickable(true);
+                        ((View)findViewById(R.id.bnuovamulta2)).setClickable(true);
+                        finish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("HttpClient", "error: " + error.toString());
+                    }
+                })
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+
+                try {
+                    String s = "";
+                    for (JSONObject obj : MainActivity.effrazioni) {
+                        s = s + obj.getString("id") + ",";
+                    }
+                    s = s.substring(0, s.length()-1);
+
+                    params.put("vigile",getSharedPreferences("vigile", MODE_PRIVATE).getString("matricola", ""));
+                    params.put("targa",((TextView)findViewById(R.id.plate)).getText().toString());
+                    params.put("luogo",((TextView)findViewById(R.id.location)).getText().toString());
+                    params.put("importo",importoMulta(MainActivity.importi)+ "");
+                    params.put("data",((TextView)findViewById(R.id.date)).getText().toString());
+                    params.put("ora",((TextView)findViewById(R.id.time)).getText().toString());
+                    params.put("latitudine",((TextView)findViewById(R.id.lat)).getText().toString());
+                    params.put("longitudine",((TextView)findViewById(R.id.lon)).getText().toString());
+                    //params.put("foto",null);
+
+                    params.put("effrazioni",s);
+                    Log.d("COCK", params.toString());
+
+                    params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
+                    params.put("function","app-nuovamulta");
+                }catch(Exception e){}
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+
+        queue.add(sr);
     }
 }

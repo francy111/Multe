@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                                     try {
                                         JSONObject rispostaJSON = new JSONObject(response);
 
+                                        Log.d("COCK", rispostaJSON.toString());
                                         if (rispostaJSON.getInt("esito") == 1) {
 
                                             SharedPreferences sp = getSharedPreferences("vigile", MODE_PRIVATE);
