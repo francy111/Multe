@@ -197,7 +197,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/ock"
-        android:text="Multe totali effettuate "
         android:textAlignment="center"
         android:textColor="#2b2b2b"
         android:textSize="20sp"
@@ -217,6 +216,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline103">
 
         <LinearLayout
+            android:id="@+id/scrolly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

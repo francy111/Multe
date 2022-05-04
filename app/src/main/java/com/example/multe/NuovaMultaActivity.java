@@ -168,6 +168,9 @@ public class NuovaMultaActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d("HttpClient", "success! response: " + response.toString());
 
+                        MainActivity.effrazioniTotali.addAll(MainActivity.effrazioni);
+                        MainActivity.effrazioni.clear();
+
                         ((View)findViewById(R.id.bnuovamulta1)).setClickable(true);
                         ((View)findViewById(R.id.bnuovamulta2)).setClickable(true);
                         finish();

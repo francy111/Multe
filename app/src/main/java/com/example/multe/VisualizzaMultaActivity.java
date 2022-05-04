@@ -4,8 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,6 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VisualizzaMultaActivity extends AppCompatActivity {
+    private long mLastClickTime = 0;
+    private JSONArray array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +48,44 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
                             JSONObject rispostaJSON = new JSONObject(response);
                             Log.d("COCK", "RISPOSTA" + rispostaJSON.toString());
 
-                            JSONArray array = rispostaJSON.getJSONArray("multe");
+                            array = rispostaJSON.getJSONArray("multe");
+                            ((TextView)findViewById(R.id.textView7)).setText("Multe totali effettuate: " + array.length());
 
                             JSONObject o;
+                            Button effr, divider;
                             for(int i = 0; i < array.length(); i++) {
                                 o = array.getJSONObject(i);
-                                Log.d("COCK", i+" " + o.toString());
+
+                                effr = new Button(VisualizzaMultaActivity.this);
+                                divider = new Button(VisualizzaMultaActivity.this);
+
+
+                                Drawable d = getResources().getDrawable(R.drawable.rettangolinogrigio2);
+                                effr.setBackground(d);
+                                effr.setTextColor(Color.rgb(43, 43, 43));
+                                effr.setText("M" + o.getString("id") + " - " + o.getString("dataora"));
+                                effr.setId(i);
+                                effr.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                                        mLastClickTime = SystemClock.elapsedRealtime();
+
+                                        try {
+                                            String s = array.getJSONObject(view.getId()).toString();
+
+                                            Intent i = new Intent(VisualizzaMultaActivity.this, InfoMultaActivity.class);
+                                            i.putExtra("multa", s);
+                                            startActivity(i);
+
+                                        }catch(Exception e){}
+                                    }
+                                });
+
+                                divider.setBackgroundColor(Color.rgb(67, 67, 67));
+
+                                ((LinearLayout) findViewById(R.id.scrolly)).addView(effr, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 175));
+                                ((LinearLayout) findViewById(R.id.scrolly)).addView(divider, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 35));
                             }
 
 
