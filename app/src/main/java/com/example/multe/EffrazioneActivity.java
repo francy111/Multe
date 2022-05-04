@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -45,6 +46,12 @@ public class EffrazioneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_effrazione);
         getWindow().setNavigationBarColor(Color.BLACK);
+
+        if(false){
+            dark_theme();
+        }else{
+            light_theme();
+        }
 
         RequestQueue queue = Volley.newRequestQueue(EffrazioneActivity.this);
         //for POST requests, only the following line should be changed to
@@ -174,5 +181,23 @@ public class EffrazioneActivity extends AppCompatActivity {
             }
         };
         ((Button)findViewById(R.id.aggiungi)).setOnClickListener(aggiungiEffrazione);
+    }
+    public void dark_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bin2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bin3).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
+        ((Button)findViewById(R.id.aggiungi)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(222, 222, 222)));
+    }
+    public void light_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bin2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bin3).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
+        ((Button)findViewById(R.id.aggiungi)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(245, 247, 255)));
     }
 }

@@ -3,6 +3,7 @@ package com.example.multe;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -87,9 +88,23 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
 
         c.findViewById(R.id.Aggiungi).setOnClickListener(this);
 
+        if(false){
+            c.findViewById(R.id.addbreakin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+            c.findViewById(R.id.view6).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+            ((Button)c.findViewById(R.id.Aggiungi)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(222, 222, 222)));
+        }else{
+            c.findViewById(R.id.addbreakin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+            c.findViewById(R.id.view6).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
+            ((Button)c.findViewById(R.id.Aggiungi)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(245, 247, 255)));
+        }
+
         Button effr, divider;
         divider = new Button(getActivity());
-        divider.setBackgroundColor(Color.rgb(43, 43, 43));
+        if(false) {
+            divider.setBackgroundColor(Color.rgb(43, 43, 43));
+        }else{
+            divider.setBackgroundColor(Color.rgb(245, 247, 255));
+        }
         ((LinearLayout)c.findViewById(R.id.scrolcoc)).addView(divider, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 35));
 
         try {
@@ -98,7 +113,12 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
                 divider = new Button(getActivity());
 
 
-                Drawable d = getActivity().getResources().getDrawable(R.drawable.rettangolinogrigio2);
+                Drawable d;
+                if(false) {
+                    d = getActivity().getResources().getDrawable(R.drawable.rettangolinogrigio2);
+                }else{
+                    d = getActivity().getResources().getDrawable(R.drawable.rettangolinogrigio4);
+                }
                 effr.setBackground(d);
                 effr.setTextColor(Color.rgb(43, 43, 43));
                 effr.setText(MainActivity.effrazioni.get(i).getString("nome"));
@@ -122,7 +142,11 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
                 });
 
 
-                divider.setBackgroundColor(Color.rgb(43, 43, 43));
+                if(false) {
+                    divider.setBackgroundColor(Color.rgb(43, 43, 43));
+                }else{
+                    divider.setBackgroundColor(Color.rgb(245, 247, 255));
+                }
 
                 ((LinearLayout) c.findViewById(R.id.scrolcoc)).addView(divider, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 35));
                 ((LinearLayout) c.findViewById(R.id.scrolcoc)).addView(effr, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 165));

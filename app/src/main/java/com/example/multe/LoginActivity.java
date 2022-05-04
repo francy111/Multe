@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,6 +39,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getWindow().setNavigationBarColor(Color.BLACK);
+
+        if(false){
+            dark_theme();
+        }else{
+            light_theme();
+        }
 
         SharedPreferences.Editor  e = getSharedPreferences("vigile", MODE_PRIVATE).edit();
         e.remove("nome");
@@ -68,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                                     try {
                                         JSONObject rispostaJSON = new JSONObject(response);
 
-                                        Log.d("COCK", rispostaJSON.toString());
                                         if (rispostaJSON.getInt("esito") == 1) {
 
                                             SharedPreferences sp = getSharedPreferences("vigile", MODE_PRIVATE);
@@ -143,5 +151,25 @@ public class LoginActivity extends AppCompatActivity {
                 throw new RuntimeException(ex.getCause());
             }
         }
+    }
+    public void dark_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.mcode3).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.viewewew).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.viewewew12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        ((Button)findViewById(R.id.bin)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(222, 222, 222)));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+    }
+
+
+    public void light_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.mcode3).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.viewewew).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.viewewew12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        ((Button)findViewById(R.id.bin)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(245, 247, 255)));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
     }
 }

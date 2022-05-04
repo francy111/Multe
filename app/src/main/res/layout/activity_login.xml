@@ -324,6 +324,7 @@
         android:text="Log In"
         android:textAlignment="center"
         android:textAllCaps="false"
+        android:textColor="#2b2b2b"
         android:textSize="25sp"
         android:textStyle="bold"
         app:cornerRadius="25dp"

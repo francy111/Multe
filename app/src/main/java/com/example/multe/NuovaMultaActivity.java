@@ -54,7 +54,11 @@ public class NuovaMultaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nuova_multa);
         getWindow().setNavigationBarColor(Color.BLACK);
 
-        Log.d("COCK", ""+importoMulta(MainActivity.importi));
+        if(false){
+            dark_theme();
+        }else{
+            light_theme();
+        }
 
         View.OnClickListener listaEffrazioni = new View.OnClickListener() {
             @Override
@@ -158,8 +162,8 @@ public class NuovaMultaActivity extends AppCompatActivity {
     }
 
     private void spedisciMulta(){
-        //((View)findViewById(R.id.bnuovamulta1)).setClickable(false);
-        //((View)findViewById(R.id.bnuovamulta2)).setClickable(false);
+        ((View)findViewById(R.id.bnuovamulta1)).setClickable(false);
+        ((View)findViewById(R.id.bnuovamulta2)).setClickable(false);
         RequestQueue queue = Volley.newRequestQueue(NuovaMultaActivity.this);
         //for POST requests, only the following line should be changed to
         StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
@@ -205,7 +209,6 @@ public class NuovaMultaActivity extends AppCompatActivity {
                     //params.put("foto",null);
 
                     params.put("effrazioni",s);
-                    Log.d("COCK", params.toString());
 
                     params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                     params.put("function","app-nuovamulta");
@@ -221,5 +224,35 @@ public class NuovaMultaActivity extends AppCompatActivity {
         };
 
         queue.add(sr);
+    }
+    public void dark_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bdt2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bc2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view20).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.viewewew).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view15).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view14).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view18).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bp1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.beffr1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bnuovamulta1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
+    }
+    public void light_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bdt2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bc2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view20).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.viewewew).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view15).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view14).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view18).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bp1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.beffr1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bnuovamulta1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
     }
 }

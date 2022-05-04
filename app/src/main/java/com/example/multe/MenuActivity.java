@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
     private long mLastClickTime = 0;
@@ -18,6 +19,12 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         getWindow().setNavigationBarColor(Color.BLACK);
+
+        if(false){
+            dark_theme();
+        }else{
+            light_theme();
+        }
 
         View.OnClickListener info = new View.OnClickListener() {
             @Override
@@ -68,5 +75,25 @@ public class MenuActivity extends AppCompatActivity {
 
         (findViewById(R.id.bvedi1)).setOnClickListener(vediMulte);
         (findViewById(R.id.bvedi2)).setOnClickListener(vediMulte);
+    }
+    public void dark_theme(){
+        findViewById(R.id.bnuovo1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bvedi1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.binfo1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view7).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.bout1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view8).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
+        findViewById(R.id.view3).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+    }
+    public void light_theme(){
+        findViewById(R.id.bnuovo1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bvedi1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.binfo1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view7).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.bout1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view8).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
+        findViewById(R.id.view3).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
     }
 }

@@ -37,6 +37,13 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizza_multa);
         getWindow().setNavigationBarColor(Color.BLACK);
+
+        if(false){
+            dark_theme();
+        }else{
+            light_theme();
+        }
+
         RequestQueue queue = Volley.newRequestQueue(VisualizzaMultaActivity.this);
         //for POST requests, only the following line should be changed to
         StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
@@ -46,7 +53,6 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
                         Log.d("HttpClient", "success! response: " + response.toString());
                         try {
                             JSONObject rispostaJSON = new JSONObject(response);
-                            Log.d("COCK", "RISPOSTA" + rispostaJSON.toString());
 
                             array = rispostaJSON.getJSONArray("multe");
                             ((TextView)findViewById(R.id.textView7)).setText("Multe totali effettuate: " + array.length());
@@ -60,7 +66,12 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
                                 divider = new Button(VisualizzaMultaActivity.this);
 
 
-                                Drawable d = getResources().getDrawable(R.drawable.rettangolinogrigio2);
+                                Drawable d;
+                                if(false) {
+                                    d = getResources().getDrawable(R.drawable.rettangolinogrigio2);
+                                }else{
+                                    d = getResources().getDrawable(R.drawable.rettangolinogrigio4);
+                                }
                                 effr.setBackground(d);
                                 effr.setTextColor(Color.rgb(43, 43, 43));
                                 effr.setText("M" + o.getString("id") + " - " + o.getString("dataora"));
@@ -76,13 +87,17 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
 
                                             Intent i = new Intent(VisualizzaMultaActivity.this, InfoMultaActivity.class);
                                             i.putExtra("multa", s);
-                                            startActivity(i);
+                                            startActivityForResult(i, 2);
 
                                         }catch(Exception e){}
                                     }
                                 });
 
-                                divider.setBackgroundColor(Color.rgb(67, 67, 67));
+                                if(false) {
+                                    divider.setBackgroundColor(Color.rgb(67, 67, 67));
+                                }else{
+                                    divider.setBackgroundColor(Color.rgb(255, 255, 255));
+                                }
 
                                 ((LinearLayout) findViewById(R.id.scrolly)).addView(effr, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 175));
                                 ((LinearLayout) findViewById(R.id.scrolly)).addView(divider, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 35));
@@ -106,7 +121,6 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                 params.put("function","app-visualizzamulte");
-                Log.d("COCK", "token: "+getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                 return params;
             }
             @Override
@@ -117,5 +131,26 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
             }
         };
         queue.add(sr);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 2){
+            startActivity(new Intent(VisualizzaMultaActivity.this, VisualizzaMultaActivity.class));
+            finish();
+        }
+    }
+
+    public void dark_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view11).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
+    }
+    public void light_theme(){
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view11).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
     }
 }

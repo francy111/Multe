@@ -2,6 +2,7 @@ package com.example.multe;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -41,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setNavigationBarColor(Color.BLACK);
+
+        if(false){
+            dark_theme();
+        }else{
+            light_theme();
+        }
+
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         //for POST requests, only the following line should be changed to
         StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
@@ -50,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("HttpClient", "success! response: " + response.toString());
                         try {
                             JSONObject rispostaJSON = new JSONObject(response);
-                            Log.d("COCK", rispostaJSON.toString());
                             Intent i;
                             if(rispostaJSON.getString("valido").equals("1")){
                                 i = new Intent(MainActivity.this, MenuActivity.class);
@@ -77,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                 params.put("function","app-checktoken");
-                Log.d("COCK", "token: "+getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
                 return params;
             }
             @Override
@@ -122,5 +128,21 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog alertdialog = builder.create();
         alertdialog.show();
+
+    }
+
+    public void dark_theme(){
+        findViewById(R.id.bin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
+        ((TextView)findViewById(R.id.textView)).setTextColor(Color.rgb(255, 255, 255));
+    }
+    public void light_theme(){
+        findViewById(R.id.bin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
+        findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
+        findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
+        ((TextView)findViewById(R.id.textView)).setTextColor(Color.rgb(43, 43, 43));
     }
 }
