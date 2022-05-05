@@ -38,7 +38,7 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_visualizza_multa);
         getWindow().setNavigationBarColor(Color.BLACK);
 
-        if(false){
+        if(getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)){
             dark_theme();
         }else{
             light_theme();
@@ -67,7 +67,7 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
 
 
                                 Drawable d;
-                                if(false) {
+                                if(getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)) {
                                     d = getResources().getDrawable(R.drawable.rettangolinogrigio2);
                                 }else{
                                     d = getResources().getDrawable(R.drawable.rettangolinogrigio4);
@@ -93,7 +93,7 @@ public class VisualizzaMultaActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                if(false) {
+                                if(getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)) {
                                     divider.setBackgroundColor(Color.rgb(67, 67, 67));
                                 }else{
                                     divider.setBackgroundColor(Color.rgb(255, 255, 255));

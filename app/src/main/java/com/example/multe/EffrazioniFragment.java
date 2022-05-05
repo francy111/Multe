@@ -88,7 +88,7 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
 
         c.findViewById(R.id.Aggiungi).setOnClickListener(this);
 
-        if(false){
+        if(getActivity().getSharedPreferences("theme", 0).getBoolean("dark", true)){
             c.findViewById(R.id.addbreakin1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
             c.findViewById(R.id.view6).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
             ((Button)c.findViewById(R.id.Aggiungi)).setBackgroundTintList(ColorStateList.valueOf(Color.rgb(222, 222, 222)));
@@ -100,7 +100,7 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
 
         Button effr, divider;
         divider = new Button(getActivity());
-        if(false) {
+        if(getActivity().getSharedPreferences("theme", 0).getBoolean("dark", true)) {
             divider.setBackgroundColor(Color.rgb(43, 43, 43));
         }else{
             divider.setBackgroundColor(Color.rgb(245, 247, 255));
@@ -114,7 +114,7 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
 
 
                 Drawable d;
-                if(false) {
+                if(getActivity().getSharedPreferences("theme", 0).getBoolean("dark", true)) {
                     d = getActivity().getResources().getDrawable(R.drawable.rettangolinogrigio2);
                 }else{
                     d = getActivity().getResources().getDrawable(R.drawable.rettangolinogrigio4);
@@ -142,7 +142,7 @@ public class EffrazioniFragment extends Fragment implements View.OnClickListener
                 });
 
 
-                if(false) {
+                if(getActivity().getSharedPreferences("theme", 0).getBoolean("dark", true)) {
                     divider.setBackgroundColor(Color.rgb(43, 43, 43));
                 }else{
                     divider.setBackgroundColor(Color.rgb(245, 247, 255));

@@ -54,7 +54,7 @@ public class NuovaMultaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nuova_multa);
         getWindow().setNavigationBarColor(Color.BLACK);
 
-        if(false){
+        if(getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)){
             dark_theme();
         }else{
             light_theme();

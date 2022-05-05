@@ -41,7 +41,7 @@ public class InfoMultaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_multa);
         getWindow().setNavigationBarColor(Color.BLACK);
 
-        if(false){
+        if(getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)){
             dark_theme();
         }else{
             light_theme();
@@ -144,9 +144,6 @@ public class InfoMultaActivity extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String, String>();
 
                 try {
-
-
-
                     params.put("id_multa",""+id);
 
                     params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
