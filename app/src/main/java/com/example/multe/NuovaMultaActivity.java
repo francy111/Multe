@@ -166,7 +166,7 @@ public class NuovaMultaActivity extends AppCompatActivity {
         ((View)findViewById(R.id.bnuovamulta2)).setClickable(false);
         RequestQueue queue = Volley.newRequestQueue(NuovaMultaActivity.this);
         //for POST requests, only the following line should be changed to
-        StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+":8080/sito/API-PHP/api.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

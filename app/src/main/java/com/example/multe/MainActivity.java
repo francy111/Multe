@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<JSONObject> effrazioniTotali = new ArrayList<>();
     private static double time = 0.0;
     private static String TOKEN;
+    public static String IP = "multeonline03.ddns.net";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         //for POST requests, only the following line should be changed to
-        StringRequest sr = new StringRequest(Request.Method.POST, "http://multe.ddns.net:8080/sito/API-PHP/api.php",
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+":8080/sito/API-PHP/api.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
