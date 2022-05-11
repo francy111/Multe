@@ -32,7 +32,8 @@
         <entry key="app/src/main/res/layout/activity_info_multa.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1953125" />
-        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.26666666666666666" />
+        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_nuova_multa.xml" value="0.1361111111111111" />
         <entry key="app/src/main/res/layout/fragment_effrazioni.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/spinner_item_dropdown.xml" value="0.10052083333333334" />
       </map>

@@ -3,10 +3,12 @@ package com.example.multe;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -54,9 +56,9 @@ public class NuovaMultaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nuova_multa);
         getWindow().setNavigationBarColor(Color.BLACK);
 
-        if(getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)){
+        if (getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", true)) {
             dark_theme();
-        }else{
+        } else {
             light_theme();
         }
 
@@ -95,8 +97,8 @@ public class NuovaMultaActivity extends AppCompatActivity {
                 SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat ora = new SimpleDateFormat("HH:mm:ss");
 
-                ((TextView)findViewById(R.id.date)).setText(data.format(new Date()));
-                ((TextView)findViewById(R.id.time)).setText(ora.format(new Date()));
+                ((TextView) findViewById(R.id.date)).setText(data.format(new Date()));
+                ((TextView) findViewById(R.id.time)).setText(ora.format(new Date()));
             }
         };
         View.OnClickListener coordinate = new View.OnClickListener() {
@@ -104,15 +106,15 @@ public class NuovaMultaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
                 mLastClickTime = SystemClock.elapsedRealtime();
-                if (ActivityCompat.checkSelfPermission(NuovaMultaActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                if (ActivityCompat.checkSelfPermission(NuovaMultaActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
                 client.getLastLocation().addOnSuccessListener(NuovaMultaActivity.this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            ((TextView)findViewById(R.id.lat)).setText(""+location.getLatitude());
-                            ((TextView)findViewById(R.id.lon)).setText(""+location.getLongitude());
+                            ((TextView) findViewById(R.id.lat)).setText("" + location.getLatitude());
+                            ((TextView) findViewById(R.id.lon)).setText("" + location.getLongitude());
                         }
                     }
                 });
@@ -123,7 +125,22 @@ public class NuovaMultaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
                 mLastClickTime = SystemClock.elapsedRealtime();
-                spedisciMulta();
+
+                if (datiInseriti()) {
+                    spedisciMulta();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NuovaMultaActivity.this);
+                    builder.setTitle("Warning");
+                    builder.setMessage("Inserire tutti i dati richiesti");
+                    builder.setCancelable(false);
+                    builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    AlertDialog alertdialog = builder.create();
+                    alertdialog.show();
+                }
             }
         };
 
@@ -151,32 +168,33 @@ public class NuovaMultaActivity extends AppCompatActivity {
         (findViewById(R.id.bnuovamulta2)).setOnClickListener(nuovaMulta);
     }
 
-    private void requestPermission(){
+    private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
     }
 
-    private int importoMulta(ArrayList<Integer> s){
+    private int importoMulta(ArrayList<Integer> s) {
         int a = 0;
-        for(Integer b : s) a += b;
+        for (Integer b : s) a += b;
         return a;
     }
 
-    private void spedisciMulta(){
-        ((View)findViewById(R.id.bnuovamulta1)).setClickable(false);
-        ((View)findViewById(R.id.bnuovamulta2)).setClickable(false);
+    private void spedisciMulta() {
+        ((View) findViewById(R.id.bnuovamulta1)).setClickable(false);
+        ((View) findViewById(R.id.bnuovamulta2)).setClickable(false);
         RequestQueue queue = Volley.newRequestQueue(NuovaMultaActivity.this);
         //for POST requests, only the following line should be changed to
-        StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+":8080/sito/API-PHP/api.php",
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://" + MainActivity.IP + ":8080/sito/API-PHP/api.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("HttpClient", "success! response: " + response.toString());
 
-                        MainActivity.effrazioniTotali.addAll(MainActivity.effrazioni);
+                        //MainActivity.effrazioniTotali.addAll(MainActivity.effrazioni);
+                        MainActivity.effrazioniTotali.clear();
                         MainActivity.effrazioni.clear();
 
-                        ((View)findViewById(R.id.bnuovamulta1)).setClickable(true);
-                        ((View)findViewById(R.id.bnuovamulta2)).setClickable(true);
+                        ((View) findViewById(R.id.bnuovamulta1)).setClickable(true);
+                        ((View) findViewById(R.id.bnuovamulta2)).setClickable(true);
                         finish();
                     }
                 },
@@ -185,47 +203,49 @@ public class NuovaMultaActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("HttpClient", "error: " + error.toString());
                     }
-                })
-        {
+                }) {
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
 
                 try {
                     String s = "";
                     for (JSONObject obj : MainActivity.effrazioni) {
                         s = s + obj.getString("id") + ",";
                     }
-                    s = s.substring(0, s.length()-1);
+                    s = s.substring(0, s.length() - 1);
 
-                    params.put("vigile",getSharedPreferences("vigile", MODE_PRIVATE).getString("matricola", ""));
-                    params.put("targa",((TextView)findViewById(R.id.plate)).getText().toString());
-                    params.put("luogo",((TextView)findViewById(R.id.location)).getText().toString());
-                    params.put("importo",importoMulta(MainActivity.importi)+ "");
-                    params.put("data",((TextView)findViewById(R.id.date)).getText().toString());
-                    params.put("ora",((TextView)findViewById(R.id.time)).getText().toString());
-                    params.put("latitudine",((TextView)findViewById(R.id.lat)).getText().toString());
-                    params.put("longitudine",((TextView)findViewById(R.id.lon)).getText().toString());
+                    params.put("vigile", getSharedPreferences("vigile", MODE_PRIVATE).getString("matricola", ""));
+                    params.put("targa", ((TextView) findViewById(R.id.plate)).getText().toString());
+                    params.put("luogo", ((TextView) findViewById(R.id.location)).getText().toString());
+                    params.put("importo", importoMulta(MainActivity.importi) + "");
+                    params.put("data", ((TextView) findViewById(R.id.date)).getText().toString());
+                    params.put("ora", ((TextView) findViewById(R.id.time)).getText().toString());
+                    params.put("latitudine", ((TextView) findViewById(R.id.lat)).getText().toString());
+                    params.put("longitudine", ((TextView) findViewById(R.id.lon)).getText().toString());
                     //params.put("foto",null);
 
-                    params.put("effrazioni",s);
+                    params.put("effrazioni", s);
 
                     params.put("token", getSharedPreferences("vigile", MODE_PRIVATE).getString("token", ""));
-                    params.put("function","app-nuovamulta");
-                }catch(Exception e){}
+                    params.put("function", "app-nuovamulta");
+                } catch (Exception e) {
+                }
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
         };
 
         queue.add(sr);
     }
-    public void dark_theme(){
+
+    public void dark_theme() {
         findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
         findViewById(R.id.bdt2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
         findViewById(R.id.bc2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio2));
@@ -240,7 +260,8 @@ public class NuovaMultaActivity extends AppCompatActivity {
         findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite1));
         findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio1));
     }
-    public void light_theme(){
+
+    public void light_theme() {
         findViewById(R.id.view12).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
         findViewById(R.id.bdt2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
         findViewById(R.id.bc2).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
@@ -254,5 +275,24 @@ public class NuovaMultaActivity extends AppCompatActivity {
         findViewById(R.id.bnuovamulta1).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio4));
         findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
         findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
+    }
+
+    public boolean datiInseriti() {
+        boolean check = true;
+        if (((TextView) findViewById(R.id.plate)).getText().toString().equals(""))
+            check = false;
+        if (((TextView) findViewById(R.id.location)).getText().toString().equals(""))
+            check = false;
+        if (((TextView) findViewById(R.id.date)).getText().toString().equals(""))
+            check = false;
+        if (((TextView) findViewById(R.id.time)).getText().toString().equals(""))
+            check = false;
+        if (((TextView) findViewById(R.id.lat)).getText().toString().equals(""))
+            check = false;
+        if (((TextView) findViewById(R.id.lon)).getText().toString().equals(""))
+            check = false;
+        if (MainActivity.effrazioni.size() == 0)
+            check = false;
+        return check;
     }
 }
