@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     //for POST requests, only the following line should be changed to
 
-                    StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+":8080/sito/API-PHP/api.php",
+                    StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+"/sito/API-PHP/api.php",
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {

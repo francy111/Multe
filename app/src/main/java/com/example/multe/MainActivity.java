@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<JSONObject> effrazioniTotali = new ArrayList<>();
     private static double time = 0.0;
     private static String TOKEN;
-    public static String IP = "multeonline03.ddns.net";
+    public static String IP = "multeonline03.ddns.net:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         //for POST requests, only the following line should be changed to
-        StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+":8080/sito/API-PHP/api.php",
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://"+MainActivity.IP+"/sito/API-PHP/api.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -145,5 +148,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.view13).setBackground(getResources().getDrawable(R.drawable.rettangolinoantracite2));
         findViewById(R.id.view9).setBackground(getResources().getDrawable(R.drawable.rettangolinogrigio3));
         ((TextView)findViewById(R.id.textView)).setTextColor(Color.rgb(43, 43, 43));
+    }
+    public static String encodeImage(Bitmap bm)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,20,baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return encImage;
     }
 }

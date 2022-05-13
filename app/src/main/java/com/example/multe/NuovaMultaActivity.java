@@ -1,29 +1,29 @@
 package com.example.multe;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,13 +42,12 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NuovaMultaActivity extends AppCompatActivity {
     private long mLastClickTime = 0;
     private FusedLocationProviderClient client;
+    public Bitmap photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +142,51 @@ public class NuovaMultaActivity extends AppCompatActivity {
                 }
             }
         };
+        View.OnClickListener foto = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                mLastClickTime = SystemClock.elapsedRealtime();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(NuovaMultaActivity.this);
+                builder.setTitle("Selezione");
+                builder.setMessage("Vuoi scattare una foto o sceglierla dalla galleria?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Scatta", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takePicture, 500);
+                    }
+                });
+                builder.setNegativeButton("Scegli", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(pickPhoto , 501);
+                    }
+                });
+                AlertDialog alertdialog = builder.create();
+                alertdialog.show();
+
+            }
+        };
+        View.OnClickListener mostrafoto = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return;
+                mLastClickTime = SystemClock.elapsedRealtime();
+
+                if(photo == null);
+                else{
+                    Intent i = new Intent(NuovaMultaActivity.this, FotoActivity.class);
+                    String s = MainActivity.encodeImage(photo);
+                    i.putExtra("Immagine", s);
+                    Log.d("COCK", s);
+                    startActivity(i);
+                }
+            }
+        };
 
         (findViewById(R.id.bdt1)).setOnClickListener(dataOra);
         (findViewById(R.id.bdt2)).setOnClickListener(dataOra);
@@ -166,6 +210,10 @@ public class NuovaMultaActivity extends AppCompatActivity {
 
         (findViewById(R.id.bnuovamulta1)).setOnClickListener(nuovaMulta);
         (findViewById(R.id.bnuovamulta2)).setOnClickListener(nuovaMulta);
+
+        (findViewById(R.id.bp1)).setOnClickListener(foto);
+        (findViewById(R.id.bp2)).setOnClickListener(foto);
+        (findViewById(R.id.fotinacarina)).setOnClickListener(mostrafoto);
     }
 
     private void requestPermission() {
@@ -183,7 +231,7 @@ public class NuovaMultaActivity extends AppCompatActivity {
         ((View) findViewById(R.id.bnuovamulta2)).setClickable(false);
         RequestQueue queue = Volley.newRequestQueue(NuovaMultaActivity.this);
         //for POST requests, only the following line should be changed to
-        StringRequest sr = new StringRequest(Request.Method.POST, "http://" + MainActivity.IP + ":8080/sito/API-PHP/api.php",
+        StringRequest sr = new StringRequest(Request.Method.POST, "http://" + MainActivity.IP + "/sito/API-PHP/api.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -192,6 +240,7 @@ public class NuovaMultaActivity extends AppCompatActivity {
                         //MainActivity.effrazioniTotali.addAll(MainActivity.effrazioni);
                         MainActivity.effrazioniTotali.clear();
                         MainActivity.effrazioni.clear();
+                        photo = null;
 
                         ((View) findViewById(R.id.bnuovamulta1)).setClickable(true);
                         ((View) findViewById(R.id.bnuovamulta2)).setClickable(true);
@@ -223,7 +272,7 @@ public class NuovaMultaActivity extends AppCompatActivity {
                     params.put("ora", ((TextView) findViewById(R.id.time)).getText().toString());
                     params.put("latitudine", ((TextView) findViewById(R.id.lat)).getText().toString());
                     params.put("longitudine", ((TextView) findViewById(R.id.lon)).getText().toString());
-                    //params.put("foto",null);
+                    params.put("foto", MainActivity.encodeImage(photo));
 
                     params.put("effrazioni", s);
 
@@ -295,4 +344,33 @@ public class NuovaMultaActivity extends AppCompatActivity {
             check = false;
         return check;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        try {
+            switch (requestCode) {
+                case 500:
+                    if (resultCode == RESULT_OK) {
+                        Bundle extra = imageReturnedIntent.getExtras();
+                        Bitmap immagine = (Bitmap)extra.get("data");
+                        photo = immagine;
+                    }
+
+                    break;
+                case 501:
+                    if (resultCode == RESULT_OK) {
+                        Uri selectedImage = imageReturnedIntent.getData();
+                        InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                        Bitmap iamge = BitmapFactory.decodeStream(imageStream);
+                        photo = iamge;
+                    }
+                    break;
+            }
+        }catch(Exception e){
+            Log.e("COCK", "ERRORE: " + e.getMessage());
+        }
+    }
+
+
 }

@@ -521,7 +521,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline56" />
 
     <TextView
-        android:id="@+id/photo"
+        android:id="@+id/fotinacarina"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:alpha="0.40"
